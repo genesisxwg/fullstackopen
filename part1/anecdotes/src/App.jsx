@@ -2,14 +2,14 @@ import { useState } from 'react'
 
 const App = () => {
   const anecdotes = [
-    'If it hurts, do it more often.',
-    'Adding manpower to a late software project makes it later!',
-    'The first 90 percent of the code accounts for the first 10 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
-    'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
-    'Premature optimization is the root of all evil.',
-    'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
-    'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
-    'The only way to go fast, is to go well.'
+    'Si duele, hazlo más a menudo.',
+    '¡Añadir mano de obra a un proyecto de software retrasado lo retrasa aún más!',
+    'El primer 90% del código representa el primer 10% del tiempo de desarrollo... El 10% restante representa el otro 90% del tiempo de desarrollo.',
+    'Cualquier tonto puede escribir código que una computadora entienda. Los buenos programadores escriben código que los humanos pueden entender.',
+    'La optimización prematura es la raíz de todos los males.',
+    'Depurar es el doble de difícil que escribir el código en primer lugar. Por lo tanto, si escribes el código lo más astutamente posible, por definición, no eres lo suficientemente inteligente para depurarlo.',
+    'Programar sin un uso extremadamente intensivo de console.log es lo mismo que si un médico se negara a usar rayos X o análisis de sangre al diagnosticar a los pacientes.',
+    'La única manera de ir rápido es ir bien.'
   ]
 
   const [selected, setSelected] = useState(0)
@@ -31,20 +31,20 @@ const App = () => {
 
   return (
     <div>
-      <h1>Anecdote of the day</h1>
+      <h1>Anécdota del día</h1>
       <div>{anecdotes[selected]}</div>
-      <div>has {votes[selected]} votes</div>
-      <button onClick={handleVote}>vote</button>
-      <button onClick={handleNextAnecdote}>next anecdote</button>
+      <div>tiene {votes[selected]} votos</div>
+      <button onClick={handleVote}>votar</button>
+      <button onClick={handleNextAnecdote}>siguiente anécdota</button>
 
-      <h1>Anecdote with most votes</h1>
+      <h1>Anécdota más votada</h1>
       {maxVotes > 0 ? (
         <div>
           <div>{anecdotes[mostVotedIndex]}</div>
-          <div>has {maxVotes} votes</div>
+          <div>tiene {maxVotes} votos</div>
         </div>
       ) : (
-        <div>No votes registered yet</div>
+        <div>Aún no se han registrado votos</div>
       )}
     </div>
   )

@@ -1,0 +1,22 @@
+.notification {
+  background: #f0f8ff;
+  font-size: 18px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+/*  msj exitosos */
+.success {
+  color: #0c6055;
+  background: #d1ecf1;
+  border-color: #bee5eb;
+}
+
+/* msj de error */
+.error {
+  color: #571915;
+  background: #cce5ff;
+  border-color: #b8daff;
+}

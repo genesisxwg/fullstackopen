@@ -1,1 +1,30 @@
-{"persons": [{"name": "Genesis Rojas", "number": "504-33495708", "id": "1"}, {"name": "Ada Lovelace", "number": "39-44-5323523", "id": "2"}]}
+{
+  "persons": [
+    {
+      "name": "Genesis Rojas",
+      "number": "504-33495708",
+      "id": "1"
+    },
+    {
+      "name": "Ada Lovelace",
+      "number": "39-44-5323523",
+      "id": "2"
+    },
+    {
+      "name": "genesis rojas",
+      "number": "504-32355487",
+      "id": "AwE9NPsr_fM"
+    },
+    {
+      "name": "Fernada Zuniga",
+      "number": "504-32355489",
+      "id": "ZsrBHdDem_Y"
+    },
+    {
+      "name": "Genesis Lopez",
+      "number": "504-33495708",
+      "id": "7eWU5k5DGgU"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

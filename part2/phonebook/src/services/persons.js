@@ -1,6 +1,5 @@
 import axios from 'axios'
-
-const baseUrl = 'https://improved-tribble-97gqv94q9j7634j6-3001.app.github.dev/persons'
+const baseUrl = '/api/persons'
 
 const getAll = () => {
   const request = axios.get(baseUrl)
@@ -12,16 +11,9 @@ const create = newObject => {
   return request.then(response => response.data)
 }
 
-const update = (id, newObject) => {
-  const request = axios.put(`${baseUrl}/${id}`, newObject)
-  return request.then(response => response.data)
-}
-
 const remove = id => {
   const request = axios.delete(`${baseUrl}/${id}`)
   return request.then(response => response.data)
 }
 
-const personService = { getAll, create, update, remove }
-
-export default personService
+export default { getAll, create, remove }

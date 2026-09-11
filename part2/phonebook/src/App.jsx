@@ -6,6 +6,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     personService
@@ -13,18 +14,41 @@ const App = () => {
       .then(initialPersons => {
         setPersons(initialPersons)
       })
+      .catch(error => {
+        console.error('Error al cargar la agenda:', error)
+      })
   }, [])
 
   const addPerson = (event) => {
     event.preventDefault()
-    
-    const existingPerson = persons.find(p => p.name.toLowerCase() === newName.toLowerCase())
 
+    const existingPerson = persons.find(
+      p => p.name.toLowerCase() === newName.toLowerCase()
+    )
+
+    // Si ya existe, preguntar si se desea actualizar el número (PUT)
     if (existingPerson) {
-      alert(`${newName} is already added to phonebook`)
+      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+        const updatedPerson = { ...existingPerson, number: newNumber }
+
+        personService
+          .update(existingPerson.id, updatedPerson)
+          .then(returnedPerson => {
+            setPersons(persons.map(p => p.id !== existingPerson.id ? p : returnedPerson))
+            setNewName('')
+            setNewNumber('')
+          })
+          .catch(error => {
+            // Muestra el mensaje retornado por el backend (p. ej. validación Mongoose)
+            const msg = error.response?.data?.error || `Information of ${newName} has already been removed from server`
+            setErrorMessage(msg)
+            setTimeout(() => setErrorMessage(null), 5000)
+          })
+      }
       return
     }
 
+    // Si no existe, crear nuevo contacto (POST)
     const personObject = {
       name: newName,
       number: newNumber
@@ -37,6 +61,12 @@ const App = () => {
         setNewName('')
         setNewNumber('')
       })
+      .catch(error => {
+        // Muestra el mensaje de validación devuelto por Express/Mongoose (ej. 400 Bad Request)
+        const msg = error.response?.data?.error || 'Failed to add person'
+        setErrorMessage(msg)
+        setTimeout(() => setErrorMessage(null), 5000)
+      })
   }
 
   const handleDelete = (id, name) => {
@@ -45,6 +75,9 @@ const App = () => {
         .remove(id)
         .then(() => {
           setPersons(persons.filter(p => p.id !== id))
+        })
+        .catch(error => {
+          console.error('Error al eliminar:', error)
         })
     }
   }
@@ -56,6 +89,20 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+
+      {errorMessage && (
+        <div style={{
+          color: 'red',
+          background: 'lightgrey',
+          fontSize: '16px',
+          borderStyle: 'solid',
+          borderRadius: '5px',
+          padding: '10px',
+          marginBottom: '10px'
+        }}>
+          {errorMessage}
+        </div>
+      )}
 
       <div>
         filter shown with <input value={filter} onChange={(e) => setFilter(e.target.value)} />
